@@ -1,0 +1,35 @@
+
+plugins {
+    id 'com.android.application'
+}
+
+def backendUrl = providers.gradleProperty("BACKEND_URL")
+        .orElse(providers.environmentVariable("BACKEND_URL"))
+        .getOrElse("")
+def backendKey = providers.gradleProperty("BACKEND_PUBLIC_KEY")
+        .orElse(providers.environmentVariable("BACKEND_PUBLIC_KEY"))
+        .getOrElse("")
+
+android {
+    namespace 'com.devostudios.brastoffyting'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.devostudios.brastoffyting'
+        minSdk 24
+        targetSdk 35
+        versionCode 108
+        versionName '1.0.8'
+        buildConfigField 'String', 'BACKEND_URL', '"' + backendUrl.replace('"', '\\"') + '"'
+        buildConfigField 'String', 'BACKEND_PUBLIC_KEY', '"' + backendKey.replace('"', '\\"') + '"'
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
